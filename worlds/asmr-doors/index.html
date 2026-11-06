@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#4f9fe6">
+<meta name="description" content="잔디밭 한가운데 서 있는 문 하나. 열고 들어가면, 소리로 가득한 여섯 개의 방.">
+<title>WORLD #001 · ASMR DOORS</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+<!-- 엔진 주소표: 탭해서 입장하기 전에는 아무것도 받지 않는다 -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="world.js"></script>
+</head>
+<body>
+
+<!-- 3D 캔버스가 들어갈 자리 -->
+<div id="stage" aria-hidden="true"></div>
+
+<!-- 0. 입장 화면: CSS로만 그린 잔디밭 -->
+<section id="intro" aria-label="입장 화면">
+  <div class="ib" aria-hidden="true">
+    <div class="ib-sky"></div>
+    <div class="ib-sun"></div>
+    <div class="ib-cloud c1"></div><div class="ib-cloud c2"></div><div class="ib-cloud c3"></div>
+    <div class="ib-hill h1"></div><div class="ib-hill h2"></div>
+    <div class="ib-ground"></div>
+    <div class="ib-door"><i class="ib-knob"></i></div>
+    <div class="ib-shadow"></div>
+  </div>
+  <div class="intro-card">
+    <p class="intro-num">WORLD #001 · ASMR DOORS</p>
+    <h1 class="intro-title">ASMR<br>DOORS</h1>
+    <p class="intro-sub">잔디밭 한가운데 서 있는 문 하나.<br>열고 들어가면, 소리로 가득한 여섯 개의 방.</p>
+    <button id="enterBtn" class="btn-enter" type="button">탭해서 입장</button>
+    <p class="intro-tip">🎧 이어폰을 끼면 더 좋아요</p>
+  </div>
+</section>
+
+<!-- 로딩 -->
+<div id="loader" class="hidden" role="status" aria-live="polite">
+  <p class="ld-text">세계를 여는 중 <b id="ldPct">0</b>%</p>
+  <div class="ld-bar"><i id="ldFill"></i></div>
+  <button id="retryBtn" class="btn-pill hidden" type="button">다시 시도</button>
+</div>
+
+<!-- 공통 UI -->
+<div id="ui" class="hidden">
+  <button id="backBtn" class="btn-back top hidden" type="button">← 홀로</button>
+  <div id="roomTitle" class="room-title hidden"></div>
+  <div id="tapHint" class="tap-hint hidden" aria-hidden="true">탭!</div>
+  <div id="soundWait" class="sound-wait hidden">소리 준비 중…</div>
+  <button id="actionBtn" class="btn-action hidden" type="button">들어가기</button>
+  <button id="backBottom" class="btn-back bottom hidden" type="button">← 홀로</button>
+  <div id="joy" class="joy hidden" aria-hidden="true"><i class="joy-knob"></i></div>
+  <div id="hint" class="hint hidden"></div>
+  <div id="toast" class="toast" role="status"></div>
+</div>
+
+<!-- 문 빛 / 장면 전환 -->
+<div id="flash" aria-hidden="true"></div>
+
+<!-- WebGL이 안 될 때: 소리만 듣는 방 목록 -->
+<section id="nogl" class="hidden" aria-label="소리만 듣기">
+  <div class="ng-card">
+    <p class="ng-title">이 기기에선 3D가 열리지 않아요</p>
+    <p class="ng-sub">대신 방의 소리만 들어볼 수 있어요.</p>
+    <div id="ngRooms" class="ng-rooms"></div>
+    <div id="ngObjs" class="ng-objs"></div>
+  </div>
+</section>
+
+<!-- 🔊 버튼은 항상 맨 위 -->
+<button id="soundBtn" class="btn-sound" type="button" aria-label="소리 끄기">🔊</button>
+
+</body>
+</html>
